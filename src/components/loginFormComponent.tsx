@@ -46,7 +46,7 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                      </InputGroup>
                   </Form.Group>
                   <div className='text-center'>
-                     <Button type='submit' id='loginButton'className='btn m-2 'onClick={(e) => {props.handleLogin(e)}}>Login</Button>
+                     <Button type='submit' id='loginButton'className='btn m-2 'onClick={props.handleLogin}>Login</Button>
                   </div>
                   <hr/>
                   <Form.Text className='text-center'>Dont have an account?? Sign up here!</Form.Text>
