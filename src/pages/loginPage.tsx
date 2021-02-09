@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoginFormComponent } from '../components/loginFormComponent';
-import { credentials, user } from '../types'
+import { credentials } from '../types'
 import { useAuthContext } from '../util/authContext';
-import { getAxiosInstance } from '../util/axiosConfig';
+import { login } from '../util/serviceCalls';
 
 export const LoginPage = () => {
    const history = useHistory();
@@ -16,16 +16,12 @@ export const LoginPage = () => {
    }
    const handleLogin = (e: any) => {
       e.preventDefault();
-      getAxiosInstance().post("/login", state)
-         .then((res) => {
-            if (res.status === 200) {
-               const user: user = {id: res.data.id, username: res.data.username, email: res.data.email};
-               const token = res.headers.tokenid;
-               localStorage.setItem("tokenId", JSON.stringify(token));
-               localStorage.setItem("user", JSON.stringify(user));
-               context.setUser(user);
-            }
-         }).catch((e) => {
+      login(state)
+         .then(res => {
+            if(res?.user) {
+               context.setUser(res.user);
+            } 
+         }). catch(e => {
             if(e.response && e.response.status === 404) {
                setErrorMsg("Invalid Username");
             } else if (e.response && e.response.status === 400) {

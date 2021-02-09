@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SignUpFormComponent } from '../components/signUpFormComponent';
-import { newUser, user } from '../types';
+import { newUser } from '../types';
 import { useAuthContext } from '../util/authContext';
-import { getAxiosInstance } from '../util/axiosConfig';
+import { signUp } from '../util/serviceCalls';
 
 export const SignUpPage = () => {
    const [newUser, setNewUser] = useState<newUser>({firstName: "", lastName: "", email: "", username: "", password: "", confirmedPassword: ""});
@@ -18,19 +18,18 @@ export const SignUpPage = () => {
          return;
       }
 
-      getAxiosInstance().post("/systemuser", newUser)
-         .then((res) => {
-            if (res.status === 201){
-               const user: user = {id: res.data.id, username: res.data.username, email: res.data.email};
-               context.setUser(user);
-               localStorage.setItem("user", JSON.stringify(user));
-               history.push("/dashboard");
-            } else {
-               setErrorMsg("Error Creating Account. Please try again later.");
+      signUp(newUser)
+         .then(res => {
+            if (res?.user) {
+               context.setUser(res.user);
             }
-         }).catch((e) => {
-            setErrorMsg("Error Creating Account. Please try again later.");
-         });
+         }).catch(e => {
+            setErrorMsg('Error Creating account. Please try again later');
+         })
+   }
+
+   if(context.user) {
+      history.push('/dashboard');
    }
 
    return (
