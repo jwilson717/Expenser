@@ -7,6 +7,7 @@ interface LoginHandlers {
    handleSignUp: () => void;
    handleLogin: (e: any) => void;
    setState: React.Dispatch<React.SetStateAction<credentials>>;
+   errorMsg: string;
 }
 
 export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => {
@@ -29,6 +30,7 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                   <div className='text-center'>
                      <h2 className='m-2 mb-4'>Login</h2>
                   </div>
+                  <p className='error'>{props.errorMsg}</p>
                   <Form.Group controlId='loginFormUsername' className='px-2'>
                      <InputGroup>
                         <InputGroup.Prepend>

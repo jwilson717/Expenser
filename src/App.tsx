@@ -4,16 +4,20 @@ import { LoginPage } from "./pages/loginPage";
 import { SignUpPage } from './pages/signUpPage';
 import './scss/app.scss';
 import {DashboardPage} from './pages/dashboardPage';
+import { AuthProvider } from './util/authContext';
+import { PrivateRoute } from './util/privateRoute';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={LoginPage}/>
-        <Route exact path="/signup" component={SignUpPage}/>
-        <Route exact path="/dahsboard" component={DashboardPage}/>
-      </Switch>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={LoginPage}/>
+          <Route exact path="/signup" component={SignUpPage}/>
+          <PrivateRoute path="/dashboard" component={DashboardPage} />
+        </Switch>
+      </Router>
+    </AuthProvider>
   );
 }
 
