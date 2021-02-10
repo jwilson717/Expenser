@@ -14,7 +14,7 @@ export const DashboardPage = () => {
 
 
    const test = () => {
-      getAxiosInstance().get(`/systemuser?id=${context.user?.id}`)
+      getAxiosInstance().get(`/userauth/systemuser?id=${context.user?.id}`)
          .then(res => {
             setState(res.data.email);
          })
