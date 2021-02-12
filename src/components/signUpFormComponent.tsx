@@ -1,9 +1,9 @@
-import { Avatar, Box, Button, Container, Grid, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { newUser } from '../types';
 import classNames from 'classnames';
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle, Visibility, VisibilityOff } from '@material-ui/icons';
 
 interface signUpProps {
    handleSignUp: (e: any) => void;
@@ -13,9 +13,28 @@ interface signUpProps {
 
 export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => {
    const [state, setState] = useState<newUser>({firstName: "", lastName: "", email: "", username: "", password: "", confirmedPassword: ""});
+   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+   const [confirmedPasswordVisible, setConfirmedPasswordVisible] = useState<boolean>(false);
    const classes = useFormStyles();
+   
    const handleChange = (e: any) =>  {
       setState({...state, [e.target.name]: e.target.value});
+   }
+
+   const togglePasswordVisible = () => {
+      if (passwordVisible) {
+         setPasswordVisible(false);
+      } else {
+         setPasswordVisible(true);
+      }
+   }
+
+   const toggleConfirmedPasswordVisible = () => {
+      if (confirmedPasswordVisible) {
+         setConfirmedPasswordVisible(false);
+      } else {
+         setConfirmedPasswordVisible(true);
+      }
    }
 
    useEffect(() => {
@@ -95,10 +114,17 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      label='Password'
                      name='password'
                      value={state.password}
-                     type='password'
+                     type={passwordVisible ? 'text': 'password'} 
                      size='small'
                      variant='filled'
                      className={classes.input}
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position='end'>
+                             {passwordVisible ? <VisibilityOff onClick={togglePasswordVisible} />: <Visibility onClick={togglePasswordVisible} />}
+                          </InputAdornment>
+                        )  
+                       }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
@@ -109,10 +135,17 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      label='Confirm Password'
                      name='confirmedPassword'
                      value={state.confirmedPassword}
-                     type='password'
+                     type={confirmedPasswordVisible ? 'text': 'password'} 
                      size='small'
                      variant='filled'
                      className={classes.input}
+                     InputProps={{
+                        endAdornment: (
+                           <InputAdornment position='end'>
+                             {confirmedPasswordVisible ? <VisibilityOff onClick={toggleConfirmedPasswordVisible} />: <Visibility onClick={toggleConfirmedPasswordVisible} />}
+                          </InputAdornment>
+                        )  
+                       }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
