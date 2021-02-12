@@ -1,8 +1,8 @@
-import { Avatar, Box, Button, Container, Grid, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { credentials } from '../types';
-import { LockOpenRounded } from '@material-ui/icons';
+import { AccountCircle, LockOpenRounded, LockSharp, Visibility, VisibilityOff } from '@material-ui/icons';
 import classNames from 'classnames';
 
 interface LoginHandlers {
@@ -13,10 +13,19 @@ interface LoginHandlers {
 
 export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => {
    const [state, setState] = useState<credentials>({username: "", password: ""});
+   const [visible, setVisible] = useState<boolean>(false);
    const classes = useFormStyles();
 
    const handleChange = (e: any) =>  {
       setState({...state, [e.target.name]: e.target.value});
+   }
+
+   const toggleVisible = () => {
+      if (visible) {
+         setVisible(false);
+      } else {
+         setVisible(true);
+      }
    }
 
    useEffect(() => {
@@ -46,6 +55,13 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                      variant='filled' 
                      autoFocus 
                      className={classes.input}
+                     InputProps={{
+                      startAdornment: (
+                        <InputAdornment position='start'>
+                           <AccountCircle />
+                        </InputAdornment>
+                      )  
+                     }}
                      required
                      onChange={(e) => {handleChange(e)}} />
                </Grid>
@@ -55,19 +71,31 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                      error={props.errorMsg.indexOf("Password") !== -1}
                      label='Password' 
                      name='password' 
-                     type='password' 
+                     type={visible ? 'text': 'password'} 
                      size='small' 
                      variant='filled' 
                      className={classes.input}
+                     InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                             <LockSharp />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                           <InputAdornment position='end'>
+                             {visible ? <VisibilityOff onClick={toggleVisible} />: <Visibility onClick={toggleVisible} />}
+                          </InputAdornment>
+                        )  
+                       }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                </Grid>
                <Grid item xs={12}>
                   <Button type='submit' color='primary' fullWidth variant='contained' onClick={props.handleLogin}>Login</Button>
-                  <a href='/signup'>Don't have an account? Sign Up here</a>
                </Grid>
             </Grid>
             </form>
+            <p>Don't have an account?<a href='/signup'> Sign Up here</a></p>
          </Box>
       </Container>
    )
