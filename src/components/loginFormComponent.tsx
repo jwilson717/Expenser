@@ -4,7 +4,6 @@ import '../scss/forms.scss';
 import { credentials } from '../types';
 
 interface LoginHandlers {
-   handleSignUp: () => void;
    handleLogin: (e: any) => void;
    setState: React.Dispatch<React.SetStateAction<credentials>>;
    errorMsg: string;
@@ -49,12 +48,8 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                   </Form.Group>
                   <div className='text-center'>
                      <Button type='submit' id='loginButton'className='btn m-2 'onClick={props.handleLogin}>Login</Button>
+                     <Form.Text className='text-center'><a href='/signup'>Dont have an account?? Sign up here!</a></Form.Text>
                   </div>
-                  <hr/>
-                  <Form.Text className='text-center'>Dont have an account?? Sign up here!</Form.Text>
-                  <Row className='justify-content-center'>
-                     <Button id='signUpButton' onClick={props.handleSignUp}>Sign Up</Button>
-                  </Row>
                </Form>
             </div>
          </Row>

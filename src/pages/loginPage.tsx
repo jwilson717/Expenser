@@ -11,9 +11,6 @@ export const LoginPage = () => {
    const context = useAuthContext();
    const [errorMsg, setErrorMsg] = useState<string>("");
 
-   const handleSignUp = () => {
-      history.push("/signup");
-   }
    const handleLogin = (e: any) => {
       e.preventDefault();
       login(state)
@@ -35,6 +32,6 @@ export const LoginPage = () => {
    }
 
    return(
-      <LoginFormComponent props={{handleSignUp, handleLogin, setState, errorMsg}} />
+      <LoginFormComponent props={{handleLogin, setState, errorMsg}} />
    );
 }
