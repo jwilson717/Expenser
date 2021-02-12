@@ -18,7 +18,6 @@ export const customTheme = createMuiTheme({
 
 export const useFormStyles = makeStyles((theme) => ({
    form: {
-      marginTop: theme.spacing(6),
       padding: theme.spacing(3),
       borderRadius: 25,
       backgroundColor: customTheme.palette.secondary.main
@@ -32,7 +31,7 @@ export const useFormStyles = makeStyles((theme) => ({
    },
    appHeader: {
       color: customTheme.palette.secondary.main,
-      fontSize: '4em',
+      fontSize: '4.5em',
       fontFamily: 'Copperplate'
    },
    input: {

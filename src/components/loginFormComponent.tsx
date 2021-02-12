@@ -6,7 +6,6 @@ import { LockOpenRounded } from '@material-ui/icons';
 import classNames from 'classnames';
 
 interface LoginHandlers {
-   handleSignUp: () => void;
    handleLogin: (e: any) => void;
    setState: React.Dispatch<React.SetStateAction<credentials>>;
    errorMsg: string;
