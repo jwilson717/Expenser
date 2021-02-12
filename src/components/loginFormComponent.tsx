@@ -1,7 +1,9 @@
+import { Avatar, Box, Button, Container, FormHelperText, Grid, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import '../scss/forms.scss';
+import { useFormStyles } from '../styles/styles';
 import { credentials } from '../types';
+import { LockOpenRounded } from '@material-ui/icons';
+import classNames from 'classnames';
 
 interface LoginHandlers {
    handleSignUp: () => void;
@@ -12,6 +14,7 @@ interface LoginHandlers {
 
 export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => {
    const [state, setState] = useState<credentials>({username: "", password: ""});
+   const classes = useFormStyles();
 
    const handleChange = (e: any) =>  {
       setState({...state, [e.target.name]: e.target.value});
@@ -22,42 +25,49 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
    }, [state]);
 
    return (
-      <Container>
-         <Row className='justify-content-center'>
-            <div className='m-2 p-2'>
-               <h1 className='text-center m-3' id='loginLogo'>Expenser</h1>
-               <Form id='loginForm' className='border border-dark shadow p-3 px-5'>
-                  <div className='text-center'>
-                     <h2 className='m-2 mb-4'>Login</h2>
-                  </div>
-                  <p className='error'>{props.errorMsg}</p>
-                  <Form.Group controlId='loginFormUsername' className='px-2'>
-                     <InputGroup>
-                        <InputGroup.Prepend>
-                           <InputGroup.Text>@</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control type='text' name='username' value={state.username} onChange={(e) => {handleChange(e)}} placeholder='Username'/>
-                     </InputGroup>
-                  </Form.Group>
-                  <Form.Group controlId='loginFormPassword' className='px-2'>
-                     <InputGroup>
-                        <InputGroup.Prepend>
-                           <InputGroup.Text>#</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control type='password' name='password' value={state.password} onChange={(e) => {handleChange(e)}} placeholder='Password'/>
-                     </InputGroup>
-                  </Form.Group>
-                  <div className='text-center'>
-                     <Button type='submit' id='loginButton'className='btn m-2 'onClick={props.handleLogin}>Login</Button>
-                  </div>
-                  <hr/>
-                  <Form.Text className='text-center'>Dont have an account?? Sign up here!</Form.Text>
-                  <Row className='justify-content-center'>
-                     <Button id='signUpButton' onClick={props.handleSignUp}>Sign Up</Button>
-                  </Row>
-               </Form>
-            </div>
-         </Row>
+      <Container maxWidth='xs'>
+         <h1 className={classNames(classes.centered, classes.appHeader)}>Expenser</h1>
+         <Box boxShadow={4} className={classes.form} >
+            <form >
+               <div className={classes.avatarContainer}>
+                  <Avatar className={classes.avatar}>
+                     <LockOpenRounded />
+                  </Avatar>
+               </div>
+            <h1 className={classes.centered}>Login</h1>
+            <p className={classNames(classes.error, classes.centered)}>{props.errorMsg}</p>
+            <Grid container spacing={3}>
+               <Grid item xs={12}>
+                  <TextField 
+                     fullWidth 
+                     label='Username' 
+                     name='username' 
+                     size='small' 
+                     variant='filled' 
+                     autoFocus 
+                     className={classes.input}
+                     required
+                     onChange={(e) => {handleChange(e)}} />
+               </Grid>
+               <Grid item xs={12}>
+                  <TextField 
+                     fullWidth 
+                     label='Password' 
+                     name='password' 
+                     type='password' 
+                     size='small' 
+                     variant='filled' 
+                     className={classes.input}
+                     required
+                     onChange={(e) => {handleChange(e)}}/>
+               </Grid>
+               <Grid item xs={12}>
+                  <Button type='submit' color='primary' fullWidth variant='contained' onClick={props.handleLogin}>Login</Button>
+                  <a href='/signup'>Don't have an account? Sign Up here</a>
+               </Grid>
+            </Grid>
+            </form>
+         </Box>
       </Container>
    )
 }
