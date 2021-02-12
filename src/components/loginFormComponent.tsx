@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, FormHelperText, Grid, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Container, Grid, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { credentials } from '../types';
@@ -39,6 +39,7 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                <Grid item xs={12}>
                   <TextField 
                      fullWidth 
+                     error={props.errorMsg.indexOf("Username") !== -1}
                      label='Username' 
                      name='username' 
                      size='small' 
@@ -51,6 +52,7 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                <Grid item xs={12}>
                   <TextField 
                      fullWidth 
+                     error={props.errorMsg.indexOf("Password") !== -1}
                      label='Password' 
                      name='password' 
                      type='password' 

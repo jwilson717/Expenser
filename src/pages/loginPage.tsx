@@ -13,6 +13,13 @@ export const LoginPage = () => {
 
    const handleLogin = (e: any) => {
       e.preventDefault();
+      if (state.username === "") {
+         setErrorMsg("Please Provide a Username");
+         return;
+      } else if(state.password === "") {
+         setErrorMsg("Please Provide a Password");
+         return;
+      }
       login(state)
          .then(res => {
             if(res?.user) {
