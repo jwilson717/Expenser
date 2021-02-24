@@ -30,6 +30,8 @@ export const LoginPage = () => {
                setErrorMsg("Invalid Username");
             } else if (e.response && e.response.status === 400) {
                setErrorMsg("Incorrect Password");
+            } else if (e.response && e.response.status === 500) {
+               setErrorMsg("Unable to login");
             }
          })
    }

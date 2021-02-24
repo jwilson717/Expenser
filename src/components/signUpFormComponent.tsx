@@ -65,6 +65,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      variant='filled'
                      className={classes.input}
                      required
+                     InputProps={{
+                        className: classes.multilineColor
+                       }}
+                       InputLabelProps={{
+                          classes: {
+                             root: classes.multilineColor
+                          }
+                       }}
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
                   <Grid item md={6} xs={12}>
@@ -78,6 +86,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      variant='filled'
                      className={classes.input}
                      required
+                     InputProps={{
+                        className: classes.multilineColor
+                       }}
+                       InputLabelProps={{
+                          classes: {
+                             root: classes.multilineColor
+                          }
+                       }}
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
                   <Grid item xs={12}>
@@ -92,6 +108,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      variant='filled'
                      className={classes.input}
                      required
+                     InputProps={{
+                        className: classes.multilineColor
+                       }}
+                       InputLabelProps={{
+                          classes: {
+                             root: classes.multilineColor
+                          }
+                       }}
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
                   <Grid item xs={12}>
@@ -105,6 +129,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      variant='filled'
                      className={classes.input}
                      required
+                     InputProps={{
+                        className: classes.multilineColor
+                       }}
+                       InputLabelProps={{
+                          classes: {
+                             root: classes.multilineColor
+                          }
+                       }}
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
                   <Grid item xs={12}>
@@ -123,8 +155,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                            <InputAdornment position='end'>
                              {passwordVisible ? <VisibilityOff onClick={togglePasswordVisible} />: <Visibility onClick={togglePasswordVisible} />}
                           </InputAdornment>
-                        )  
+                        ),
+                        className: classes.multilineColor
                        }}
+                       InputLabelProps={{
+                        classes: {
+                           root: classes.multilineColor
+                        }
+                     }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>
@@ -144,8 +182,14 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                            <InputAdornment position='end'>
                              {confirmedPasswordVisible ? <VisibilityOff onClick={toggleConfirmedPasswordVisible} />: <Visibility onClick={toggleConfirmedPasswordVisible} />}
                           </InputAdornment>
-                        )  
+                        ),
+                        className: classes.multilineColor
                        }}
+                       InputLabelProps={{
+                        classes: {
+                           root: classes.multilineColor
+                        }
+                     }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                   </Grid>

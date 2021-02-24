@@ -60,7 +60,13 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                         <InputAdornment position='start'>
                            <AccountCircle />
                         </InputAdornment>
-                      )  
+                      ),
+                      className: classes.multilineColor
+                     }}
+                     InputLabelProps={{
+                        classes: {
+                           root: classes.multilineColor
+                        }
                      }}
                      required
                      onChange={(e) => {handleChange(e)}} />
@@ -85,8 +91,14 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                            <InputAdornment position='end'>
                              {visible ? <VisibilityOff onClick={toggleVisible} />: <Visibility onClick={toggleVisible} />}
                           </InputAdornment>
-                        )  
+                        ),
+                        className: classes.multilineColor  
                        }}
+                       InputLabelProps={{
+                        classes: {
+                           root: classes.multilineColor
+                        }
+                     }}
                      required
                      onChange={(e) => {handleChange(e)}}/>
                </Grid>
