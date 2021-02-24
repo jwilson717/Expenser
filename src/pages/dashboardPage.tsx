@@ -25,13 +25,13 @@ export const DashboardPage = () => {
    }
 
    const tempLogout = () => {
-      context.setUser(null);
       logout();
+      context.userDispatch({type: "LOGOUT", user: null});
    }
 
 
    const test = () => {
-      getAxiosInstance().get(`/userauth/systemuser?id=${context.user?.id}`)
+      getAxiosInstance().get(`/userauth/systemuser?id=${context.user?.user?.id}`)
          .then(res => {
             setState(res.data.email);
          })
@@ -90,7 +90,7 @@ export const DashboardPage = () => {
       <main className={classes.content}>
          <Container maxWidth='lg' className={classes.container}>
             <div className={classes.appBarSpacer} />
-            <h2 className='text-center'>Welcome {context.user?.username}</h2>
+            <h2 className='text-center'>Welcome {context.user?.user?.username}</h2>
             <h2 className='text-center'>{state}</h2>
             <button onClick={test} className='btn btn-secondary'>Test</button>
             <div className='text-center'>

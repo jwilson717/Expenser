@@ -1,24 +1,26 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
-import { action, user } from '../types';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import { action, userState } from '../types';
 
 interface IAuthContext {
-   user?: user;
-   setUser: any;
+   user?: userState;
+   userDispatch: any;
 }
 
-const AuthContext = createContext<IAuthContext>({setUser: null});
+const AuthContext = createContext<IAuthContext>({userDispatch: null});
 
-const userReducer = (user: user, action: action):user|null => {
+const userReducer = (user: userState, action: action):userState => {
    switch (action.type) {
       case "LOGIN":
-         return !action.user ? null : 
+         return !action.user.user ? {user: null} : 
           {...user, 
-            id: action.user.id,
-            username: action.user.username,
-            email: action.user.email 
+            user: {
+               id: action.user.user.id,
+               username: action.user.user.username,
+               email: action.user.user.email 
+            }
          };
       case "LOGOUT":
-         return null;
+         return {user: null};
       default:
          return user;
    }
@@ -29,32 +31,17 @@ function readStorage<T>(key: string, initialValue: T|null) {
    return item ? JSON.parse(item) : initialValue;
 }
 
-// const AuthProvider: React.FC = ({ children }) => {
-//    const [user, setUser] = useState(readStorage("user", null));
-
-//    useEffect(() => {
-//       if (!user) {
-//          setUser(readStorage("user", null));
-//       }
-//    }, []);
-
-//    return (
-//       <AuthContext.Provider value={{user, setUser}}>
-//          {children}
-//       </AuthContext.Provider>
-//    )
-// }
 const AuthProvider: React.FC = ({ children }) => {
-   const [user, setUser] = useReducer(userReducer, readStorage("user", null));
+   const [user, userDispatch] = useReducer(userReducer, {user: readStorage("user", null)});
 
    useEffect(() => {
-      if (!user) {
-         setUser({type: "LOGIN", user: readStorage("user", null)});
+      if (!user.user) {
+         userDispatch({type: "LOGIN", user: {user: readStorage("user", null)}});
       }
    }, []);
 
    return (
-      <AuthContext.Provider value={{user, setUser}}>
+      <AuthContext.Provider value={{user, userDispatch}}>
          {children}
       </AuthContext.Provider>
    )

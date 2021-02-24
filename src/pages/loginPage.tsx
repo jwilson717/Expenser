@@ -23,7 +23,7 @@ export const LoginPage = () => {
       login(state)
          .then(res => {
             if(res?.user) {
-               context.setUser(res.user);
+               context.userDispatch({type: "LOGIN", user: {user: res.user}});
             } 
          }). catch(e => {
             if(e.response && e.response.status === 404) {
@@ -36,7 +36,7 @@ export const LoginPage = () => {
          })
    }
 
-   if (context.user) {
+   if (context.user?.user) {
       history.push("/dashboard");
    }
 

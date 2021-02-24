@@ -5,7 +5,7 @@ import { useAuthContext } from './authContext';
 export const PrivateRoute: React.FC<{component: any, path: string}>  = ({component, path}) => {
    const context = useAuthContext();
    const history = useHistory();
-   if (!context.user) {
+   if (!context.user?.user) {
       history.push("/");
    }
    return (

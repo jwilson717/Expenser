@@ -20,5 +20,10 @@ export interface user {
 
 export interface action {
    type: string;
+   user: userState;
+}
+
+export interface userState {
    user: user|null;
+   // loading: boolean;
 }

@@ -58,14 +58,14 @@ export const SignUpPage = () => {
       signUp(newUser)
          .then(res => {
             if (res?.user) {
-               context.setUser(res.user);
+               context.userDispatch({type: "LOGIN", user: {user: res.user}});
             }
          }).catch(e => {
             setErrorMsg('Error Creating account. Please try again later');
          })
    }
 
-   if(context.user) {
+   if(context.user?.user) {
       history.push('/dashboard');
    }
 
