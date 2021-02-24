@@ -17,3 +17,8 @@ export interface user {
    username: string;
    email: string;
 }
+
+export interface action {
+   type: string;
+   user: user|null;
+}
