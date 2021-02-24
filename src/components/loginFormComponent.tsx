@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { credentials } from '../types';
@@ -34,7 +34,9 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
 
    return (
       <Container maxWidth='xs'>
-         <h1 className={classNames(classes.centered, classes.appHeader)}>Expenser</h1>
+         <Typography component='h1' variant='h1' className={classes.appHeader} color='primary'>
+            Expenser
+         </Typography>
          <Box boxShadow={4} className={classes.form} >
             <form >
                <div className={classes.avatarContainer}>
@@ -103,7 +105,7 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                      onChange={(e) => {handleChange(e)}}/>
                </Grid>
                <Grid item xs={12}>
-                  <Button type='submit' color='primary' fullWidth variant='contained' onClick={props.handleLogin}>Login</Button>
+                  <Button type='submit' color='secondary' fullWidth variant='contained' onClick={props.handleLogin}>Login</Button>
                </Grid>
             </Grid>
             </form>

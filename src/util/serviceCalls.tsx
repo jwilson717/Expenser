@@ -14,7 +14,7 @@ export const login = async (creds: credentials) => {
       })
 }
 
-export const logout = () => {
+export const clearUser = () => {
    getAxiosInstance().defaults.headers["tokenId"] = null;
    localStorage.removeItem("user");
    localStorage.removeItem("tokenId");

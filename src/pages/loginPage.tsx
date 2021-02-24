@@ -25,7 +25,7 @@ export const LoginPage = () => {
             if(res?.user) {
                context.userDispatch({type: "LOGIN", user: {user: res.user}});
             } 
-         }). catch(e => {
+         }).catch(e => {
             if(e.response && e.response.status === 404) {
                setErrorMsg("Invalid Username");
             } else if (e.response && e.response.status === 400) {

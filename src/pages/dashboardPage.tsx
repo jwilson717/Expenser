@@ -1,40 +1,49 @@
-import { AppBar, Badge, Container, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Container, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDashboardStyles } from '../styles/styles';
 import { useAuthContext } from '../util/authContext';
-import { getAxiosInstance } from '../util/axiosConfig';
-import { logout } from '../util/serviceCalls';
+import { clearUser } from '../util/serviceCalls';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import { ChevronLeft, Payment, PieChart } from '@material-ui/icons';
+import { ChevronLeft, ExitToApp, Payment, PieChart } from '@material-ui/icons';
 import clsx from 'clsx';
+import { HomeDashboardComponent } from '../components/homeDashboardComponent';
+
+function Copyright() {
+   return (
+     <Typography variant="body2" color="textSecondary" align="center">
+       {'Copyright \u00a9 '}
+       <span>
+         Pessimist Technologies {new Date().getFullYear()}.
+       </span>
+     </Typography>
+   );
+ }
 
 export const DashboardPage = () => {
    const context = useAuthContext();
    const classes = useDashboardStyles();
-   const [state, setState] = useState();
    const [open, setOpen] = useState(false);
+   const [dash, setDash] = useState('home');
 
-   const hanldeDrawerOpen = () => {
-      setOpen(true);
+   const toggleDrawer = () => {
+      open ? setOpen(false): setOpen(true);
    }
 
-   const hanldeDrawerClose = () => {
-      setOpen(false);
-   }
-
-   const tempLogout = () => {
-      logout();
+   const logout = () => {
+      clearUser();
       context.userDispatch({type: "LOGOUT", user: null});
    }
 
-
-   const test = () => {
-      getAxiosInstance().get(`/userauth/systemuser?id=${context.user?.user?.id}`)
-         .then(res => {
-            setState(res.data.email);
-         })
+   const content = () => {
+      switch (dash) {
+         case ('transactions'):
+            return <div>Transactions</div>;
+         case ('reports'): 
+            return <div>Reports</div>;
+         default:
+            return <HomeDashboardComponent />
+      }
    }
 
    return (
@@ -45,41 +54,39 @@ export const DashboardPage = () => {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={hanldeDrawerOpen}
+            onClick={toggleDrawer}
           >
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
-          <IconButton color="inherit" className={classes.notificationsIcon}>
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <IconButton color="inherit" className={classes.notificationsIcon} onClick={logout}>
+            <ExitToApp />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer variant='permanent' open={open} classes={{paper: clsx(classes.closedDrawer, open && classes.openedDrawer)}}>
          <div className={classes.drawerCloseButton}>
-            <IconButton onClick={hanldeDrawerClose}>
+            <IconButton onClick={toggleDrawer}>
                <ChevronLeft />
             </IconButton>
          </div>
          <Divider />
          <List>
-            <ListItem button>
+            <ListItem button onClick={() => setDash('home')}>
                <ListItemIcon>
                   <DashboardIcon />
                </ListItemIcon>
                <ListItemText>Dashboard</ListItemText>
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={() => setDash('transactions')}>
                <ListItemIcon>
                   <Payment />
                </ListItemIcon>
                <ListItemText>Transactions</ListItemText>
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={() => setDash('reports')}>
                <ListItemIcon>
                   <PieChart />
                </ListItemIcon>
@@ -87,15 +94,13 @@ export const DashboardPage = () => {
             </ListItem>
          </List>
       </Drawer>
-      <main className={classes.content}>
+      <main className={clsx(classes.content, open && classes.contentShift)}>
+         <div className={classes.appBarSpacer} />
          <Container maxWidth='lg' className={classes.container}>
-            <div className={classes.appBarSpacer} />
-            <h2 className='text-center'>Welcome {context.user?.user?.username}</h2>
-            <h2 className='text-center'>{state}</h2>
-            <button onClick={test} className='btn btn-secondary'>Test</button>
-            <div className='text-center'>
-               <button onClick={tempLogout} className='btn btn-secondary'>Logout</button>
-            </div>
+            {content()}
+            <Box pt={4}>
+               <Copyright />
+            </Box>
          </Container>
       </main>
       </div>

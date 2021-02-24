@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField } from '@material-ui/core';
+import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { newUser } from '../types';
@@ -43,7 +43,9 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
 
    return (
       <Container maxWidth='sm'>
-         <h1 className={classNames(classes.centered, classes.appHeader)}>Expenser</h1>
+         <Typography component='h1' variant='h1' className={classes.appHeader} color='primary'>
+            Expenser
+         </Typography>
          <Box boxShadow={4} className={classes.form}>
             <div className={classes.avatarContainer}>
                <Avatar className={classes.avatar}>
@@ -196,7 +198,7 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                   <Grid item xs={12} >
                      <Button 
                         type='submit' 
-                        color='primary' 
+                        color='secondary' 
                         fullWidth 
                         variant='contained'
                         onClick={props.handleSignUp}

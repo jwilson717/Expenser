@@ -3,17 +3,8 @@ import { createMuiTheme, makeStyles } from "@material-ui/core";
 export const customTheme = createMuiTheme({
    palette: {
       type: 'dark',
-      primary: {main: '#006400'},
-      secondary: {main: '#DAA520'}
-   },
-   overrides: {
-      MuiCssBaseline: {
-         '@global': {
-            body: {
-               backgroundColor: '#006400'
-            }
-         }
-      }
+      primary: {main: '#88C417'},
+      secondary: {main: '#1A1D31'}
    }
 })
 
@@ -24,7 +15,7 @@ export const useFormStyles = makeStyles((theme) => ({
    form: {
       padding: theme.spacing(3),
       borderRadius: 25,
-      backgroundColor: customTheme.palette.secondary.main,
+      backgroundColor: customTheme.palette.primary.main,
       color: '#000000'
    },
    centered: {
@@ -35,9 +26,11 @@ export const useFormStyles = makeStyles((theme) => ({
       fontWeight: 'bold'
    },
    appHeader: {
-      color: customTheme.palette.secondary.main,
+      textAlign: 'center',
       fontSize: '4.5em',
-      fontFamily: 'Copperplate'
+      fontFamily: 'Copperplate',
+      fontWeight: 'bold',
+      padding: theme.spacing(3)
    },
    input: {
       backgroundColor: '#FFFFFF',
@@ -52,7 +45,7 @@ export const useFormStyles = makeStyles((theme) => ({
       alignItems: `center`
    },
    avatar: {
-      backgroundColor: customTheme.palette.primary.main,
+      backgroundColor: customTheme.palette.secondary.main,
       color: '#FFFFFF'
    },
    helperText: {
@@ -79,7 +72,16 @@ export const useDashboardStyles = makeStyles((theme) => ({
       flexGrow: 1,
       height: '100vh',
       overflow: 'auto',
-      backgroundColor: theme.palette.background.paper
+      marginLeft: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+         marginLeft: theme.spacing(9)
+      },
+      backgroundColor: '#121212'
+   },
+   contentShift: {
+      [theme.breakpoints.up('md')]: {
+         marginLeft: drawerWidth
+      }
    },
    appBarShift: {
       marginLeft: drawerWidth,
@@ -115,4 +117,15 @@ export const useDashboardStyles = makeStyles((theme) => ({
       paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
     }
+}))
+
+
+export const useDashboardContentStyles = makeStyles((theme) => ({
+   paper: {
+      padding: theme.spacing(3)
+   },
+   title: {
+      flexGrow: 1,
+      fontWeight: 'bold'
+   }
 }))
