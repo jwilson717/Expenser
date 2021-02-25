@@ -132,5 +132,11 @@ export const useDashboardContentStyles = makeStyles((theme) => ({
    }, 
    centered: {
       textAlign: 'center'
+   },
+   accountTile: {
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.primary.main,
+      height: 150,
+      width: 175
    }
 }))

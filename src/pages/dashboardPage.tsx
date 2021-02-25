@@ -105,7 +105,7 @@ export const DashboardPage = () => {
       </Drawer>
       <main className={clsx(classes.content, open && classes.contentShift)}>
          <div className={classes.appBarSpacer} />
-         <Container maxWidth='lg' className={classes.container}>
+         <Container maxWidth='xl' className={classes.container}>
             {content()}
             <Box pt={4}>
                <Copyright />
