@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { LoadingComponent } from '../components/loadingComponent';
 import { SignUpFormComponent } from '../components/signUpFormComponent';
 import { newUser } from '../types';
 import { useAuthContext } from '../util/authContext';
@@ -8,6 +9,7 @@ import { signUp } from '../util/serviceCalls';
 export const SignUpPage = () => {
    const [newUser, setNewUser] = useState<newUser>({firstName: "", lastName: "", email: "", username: "", password: "", confirmedPassword: ""});
    const [errorMsg, setErrorMsg] = useState<string>("");
+   const [loading, setLoading] = useState<boolean>(false);
    const history = useHistory();
    const context = useAuthContext();
 
@@ -47,11 +49,14 @@ export const SignUpPage = () => {
 
    const handleSignUp = (e: any) => {
       e.preventDefault();
+      setLoading(true);
       if (!validate()) {
+         setLoading(false);
          return;
       }
       if (newUser.password !== newUser.confirmedPassword) {
          setErrorMsg("Passwords do not match");
+         setLoading(false);
          return;
       }
 
@@ -60,9 +65,14 @@ export const SignUpPage = () => {
             if (res?.user) {
                context.userDispatch({type: "LOGIN", user: {user: res.user}});
             }
+            setLoading(false);
          }).catch(e => {
             setErrorMsg('Error Creating account. Please try again later');
+            setLoading(false);
          })
+   }
+   if (context.user?.loading) {
+      return <LoadingComponent />
    }
 
    if(context.user?.user) {
@@ -70,6 +80,6 @@ export const SignUpPage = () => {
    }
 
    return (
-      <SignUpFormComponent props={{handleSignUp, errorMsg, setNewUser}}/>
+      <SignUpFormComponent props={{handleSignUp, errorMsg, setNewUser, loading}}/>
    )
 }

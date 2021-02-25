@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, CircularProgress, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { credentials } from '../types';
@@ -9,6 +9,7 @@ interface LoginHandlers {
    handleLogin: (e: any) => void;
    setState: React.Dispatch<React.SetStateAction<credentials>>;
    errorMsg: string;
+   loading: boolean;
 }
 
 export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => {
@@ -105,7 +106,9 @@ export const LoginFormComponent: React.FC<{props:LoginHandlers}> = ({props}) => 
                      onChange={(e) => {handleChange(e)}}/>
                </Grid>
                <Grid item xs={12}>
-                  <Button type='submit' color='secondary' fullWidth variant='contained' onClick={props.handleLogin}>Login</Button>
+                  <Button type='submit' color='secondary' fullWidth variant='contained' disabled={props.loading} onClick={props.handleLogin}>
+                     Login{props.loading ? <CircularProgress size={24} className={classes.buttonProgress} />: ""}
+                  </Button>
                </Grid>
             </Grid>
             </form>

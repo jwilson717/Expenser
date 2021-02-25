@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
+import { Avatar, Box, Button, CircularProgress, Container, Grid, InputAdornment, TextField, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useFormStyles } from '../styles/styles';
 import { newUser } from '../types';
@@ -9,6 +9,7 @@ interface signUpProps {
    handleSignUp: (e: any) => void;
    errorMsg: string;
    setNewUser: React.Dispatch<React.SetStateAction<newUser>>;
+   loading: boolean;
 }
 
 export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => {
@@ -66,6 +67,7 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                      size='small'
                      variant='filled'
                      className={classes.input}
+                     autoFocus
                      required
                      InputProps={{
                         className: classes.multilineColor
@@ -201,8 +203,11 @@ export const SignUpFormComponent: React.FC<{props: signUpProps}> = ({props}) => 
                         color='secondary' 
                         fullWidth 
                         variant='contained'
+                        disabled={props.loading}
                         onClick={props.handleSignUp}
-                        >Sign Up</Button>
+                        >
+                        Sign Up {props.loading && <CircularProgress size={24} className={classes.buttonProgress} />}
+                     </Button>
                   </Grid>
                </Grid>
             </form>

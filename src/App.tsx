@@ -7,7 +7,6 @@ import { AuthProvider } from './util/authContext';
 import { PrivateRoute } from './util/privateRoute';
 import { customTheme } from './styles/styles';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import './css/app.css';
 
 function App() {
   return (

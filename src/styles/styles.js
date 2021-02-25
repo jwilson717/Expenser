@@ -50,6 +50,10 @@ export const useFormStyles = makeStyles((theme) => ({
    },
    helperText: {
       textAlign: `right`
+   },
+   buttonProgress: {
+      color: theme.palette.secondary.main,
+      position: 'absolute',
    }
 }))
 
@@ -79,9 +83,7 @@ export const useDashboardStyles = makeStyles((theme) => ({
       backgroundColor: '#121212'
    },
    contentShift: {
-      [theme.breakpoints.up('md')]: {
-         marginLeft: drawerWidth
-      }
+      marginLeft: 0
    },
    appBarShift: {
       marginLeft: drawerWidth,
@@ -127,5 +129,8 @@ export const useDashboardContentStyles = makeStyles((theme) => ({
    title: {
       flexGrow: 1,
       fontWeight: 'bold'
+   }, 
+   centered: {
+      textAlign: 'center'
    }
 }))

@@ -5,9 +5,10 @@ import { useAuthContext } from '../util/authContext';
 import { clearUser } from '../util/serviceCalls';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import { ChevronLeft, ExitToApp, Payment, PieChart } from '@material-ui/icons';
+import { AddCircle, ChevronLeft, ExitToApp, Payment, PieChart } from '@material-ui/icons';
 import clsx from 'clsx';
 import { HomeDashboardComponent } from '../components/homeDashboardComponent';
+import { LoadingComponent } from '../components/loadingComponent';
 
 function Copyright() {
    return (
@@ -41,8 +42,10 @@ export const DashboardPage = () => {
             return <div>Transactions</div>;
          case ('reports'): 
             return <div>Reports</div>;
+         case ('load'):
+            return <LoadingComponent />;
          default:
-            return <HomeDashboardComponent />
+            return <HomeDashboardComponent />;
       }
    }
 
@@ -59,7 +62,7 @@ export const DashboardPage = () => {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Expenser Dashboard
           </Typography>
           <IconButton color="inherit" className={classes.notificationsIcon} onClick={logout}>
             <ExitToApp />
@@ -91,6 +94,12 @@ export const DashboardPage = () => {
                   <PieChart />
                </ListItemIcon>
                <ListItemText>Reports</ListItemText>
+            </ListItem>
+            <ListItem button onClick={() => setDash('load')}>
+               <ListItemIcon>
+                  <AddCircle />
+               </ListItemIcon>
+               <ListItemText>Loading Test</ListItemText>
             </ListItem>
          </List>
       </Drawer>

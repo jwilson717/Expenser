@@ -29,3 +29,10 @@ export const signUp = async (newUser: newUser) => {
          } 
       })
 }
+
+export const validateToken = async (token: string) => {
+   return await getAxiosInstance().post('/userauth/validate', {token: token})
+      .then(res => {
+         return res;
+      })
+}

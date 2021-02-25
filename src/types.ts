@@ -25,5 +25,5 @@ export interface action {
 
 export interface userState {
    user: user|null;
-   // loading: boolean;
+   loading: boolean;
 }

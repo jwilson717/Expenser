@@ -17,15 +17,15 @@ export const HomeDashboardComponent = () => {
    
    return (
       <Grid container spacing={3}>
-               <Grid item xs={12}>
-                  <Paper className={classes.paper}>
-                     <Typography component='h2' variant='h4' color='primary' className={classes.title}>
-                        Welcome {context.user?.user?.username}
-                     </Typography>
-                     <h2 className='text-center'>{state}</h2>
-                     <button onClick={test} className='btn btn-secondary'>Test</button>
-                  </Paper>
-               </Grid>
-            </Grid>
+         <Grid item xs={12}>
+            <Paper className={classes.paper}>
+               <Typography component='h2' variant='h4' color='primary' className={classes.title}>
+                  Welcome {context.user?.user?.username}
+               </Typography>
+               <h2 className='text-center'>{state}</h2>
+               <button onClick={test} className='btn btn-secondary'>Test</button>
+            </Paper>
+         </Grid>
+      </Grid>
    )
 }
