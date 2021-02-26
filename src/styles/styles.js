@@ -80,7 +80,7 @@ export const useDashboardStyles = makeStyles((theme) => ({
       [theme.breakpoints.up('sm')]: {
          marginLeft: theme.spacing(9)
       },
-      backgroundColor: '#121212'
+      backgroundColor: theme.palette.grey[900]
    },
    contentShift: {
       marginLeft: 0
