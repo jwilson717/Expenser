@@ -138,5 +138,18 @@ export const useDashboardContentStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.primary.main,
       height: 150,
       width: 175
+   },
+   table: {
+      padding: theme.spacing(2)
+   },
+   container: {
+      marginTop: theme.spacing(1)
+   },
+   tileTitle: {
+      fontWeight: 'bold',
+      color: theme.palette.primary.main
+   },
+   tileContent: {
+      fontSize: '2em'
    }
 }))

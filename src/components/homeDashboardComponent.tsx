@@ -1,22 +1,68 @@
-import { Grid, Typography } from '@material-ui/core';
-import React from 'react';
+import { Grid, Paper, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { useDashboardContentStyles } from '../styles/styles';
-import { useAuthContext } from '../util/authContext';
+import { accounts } from '../types';
+import { getAccounts } from '../util/serviceCalls';
+import { AccountListComponent } from './accountListComponent';
+
+// const accountsLists = [
+//    {id: 1, type: {id: 1, type: "Checking"}, description: "Chase Checking", balance: 1000.00, userId: 1},
+//    {id: 2, type: {id: 2, type: "Savings"}, description: "Chase Savings", balance: 3000.00, userId: 1},
+//    {id: 3, type: {id: 2, type: "Savings"}, description: "Chase Savings", balance: 3000.00, userId: 1}
+// ]
 
 export const HomeDashboardComponent = () => {
-   const context = useAuthContext();
    const classes = useDashboardContentStyles();
+   const [accountsList, setAccounts] = useState<accounts>({accounts: []});
+
+   useEffect(()=>{
+      getAccounts().then(res => {
+         setAccounts({accounts: res.data});
+      })
+   }, [])
    
    return (
       <div>
-         <Typography component='h2' variant='h4' color='primary' className={classes.title}>
-            Accounts
-         </Typography>
-         <Typography component='p' variant='body2' color='primary' className={classes.title}>
-            Welcome {context.user?.user?.username}
-         </Typography>
-         <Grid container spacing={3} justify='center'>
-            
+         <Grid container spacing={3} justify='center' className={classes.container}>
+            <Grid item xs={12} sm={4}>
+               <Paper className={classes.table}>
+                  <Typography variant='h6' className={classes.tileTitle} noWrap>
+                     Accounts
+                  </Typography>
+                  <Typography className={classes.tileContent}>
+                     {accountsList.accounts.length}
+                  </Typography>
+               </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+               <Paper className={classes.table}>
+                  <Typography variant='h6' className={classes.tileTitle} noWrap>
+                     Accounts
+                  </Typography>
+                  <Typography className={classes.tileContent}>
+                     {accountsList.accounts.length}
+                  </Typography>
+               </Paper>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+               <Paper className={classes.table}>
+                  <Typography variant='h6' className={classes.tileTitle} noWrap>
+                     Total Balance
+                  </Typography>
+                  <Typography className={classes.tileContent} noWrap>
+                  {accountsList.accounts.reduce((sum, current) => sum + current.balance, 0)
+                     .toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 2})}
+                  </Typography>
+               </Paper>
+            </Grid>
+            <Grid item xs={12}>
+               <Paper className={classes.table}>
+               <Typography component='h2' variant='h6' color='primary' className={classes.title}>
+                  Accounts
+               </Typography>
+                  <AccountListComponent accounts={{accounts: accountsList.accounts}}/>
+               </Paper>
+            </Grid>
          </Grid>
       </div>
    )

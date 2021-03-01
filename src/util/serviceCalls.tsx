@@ -36,3 +36,8 @@ export const validateToken = async (token: string) => {
          return res;
       })
 }
+
+export const getAccounts = async () => {
+   return await getAxiosInstance().get("/accounts/account")
+      .then(res => res);
+}

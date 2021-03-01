@@ -5,10 +5,9 @@ import { useAuthContext } from '../util/authContext';
 import { clearUser } from '../util/serviceCalls';
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import { AddCircle, ChevronLeft, ExitToApp, Payment, PieChart } from '@material-ui/icons';
+import { ChevronLeft, ExitToApp, Payment, PieChart } from '@material-ui/icons';
 import clsx from 'clsx';
 import { HomeDashboardComponent } from '../components/homeDashboardComponent';
-import { LoadingComponent } from '../components/loadingComponent';
 
 function Copyright() {
    return (
@@ -42,8 +41,6 @@ export const DashboardPage = () => {
             return <div>Transactions</div>;
          case ('reports'): 
             return <div>Reports</div>;
-         case ('load'):
-            return <LoadingComponent />;
          default:
             return <HomeDashboardComponent />;
       }
@@ -53,14 +50,14 @@ export const DashboardPage = () => {
       <div className={classes.root}>
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar>
-          <IconButton
+        {open ? "" :<IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
             onClick={toggleDrawer}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton>}
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Expenser Dashboard
           </Typography>
@@ -95,17 +92,11 @@ export const DashboardPage = () => {
                </ListItemIcon>
                <ListItemText>Reports</ListItemText>
             </ListItem>
-            <ListItem button onClick={() => setDash('load')}>
-               <ListItemIcon>
-                  <AddCircle />
-               </ListItemIcon>
-               <ListItemText>Loading Test</ListItemText>
-            </ListItem>
          </List>
       </Drawer>
       <main className={clsx(classes.content, open && classes.contentShift)}>
          <div className={classes.appBarSpacer} />
-         <Container maxWidth='xl' className={classes.container}>
+         <Container maxWidth='lg' className={classes.container}>
             {content()}
             <Box pt={4}>
                <Copyright />
