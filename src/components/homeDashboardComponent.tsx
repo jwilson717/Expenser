@@ -24,7 +24,7 @@ export const HomeDashboardComponent = () => {
    return (
       <div>
          <Grid container spacing={3} justify='center' className={classes.container}>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} md={4}>
                <Paper className={classes.table}>
                   <Typography variant='h6' className={classes.tileTitle} noWrap>
                      Accounts
@@ -34,7 +34,7 @@ export const HomeDashboardComponent = () => {
                   </Typography>
                </Paper>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} md={4}>
                <Paper className={classes.table}>
                   <Typography variant='h6' className={classes.tileTitle} noWrap>
                      Accounts
@@ -44,7 +44,7 @@ export const HomeDashboardComponent = () => {
                   </Typography>
                </Paper>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} md={4}>
                <Paper className={classes.table}>
                   <Typography variant='h6' className={classes.tileTitle} noWrap>
                      Total Balance
