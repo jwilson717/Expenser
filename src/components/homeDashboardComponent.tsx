@@ -1,9 +1,10 @@
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { Grid, Link, Paper, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useDashboardContentStyles } from '../styles/styles';
 import { accounts } from '../types';
 import { getAccounts } from '../util/serviceCalls';
 import { AccountListComponent } from './accountListComponent';
+import { LoadingComponent } from './loadingComponent';
 
 // const accountsLists = [
 //    {id: 1, type: {id: 1, type: "Checking"}, description: "Chase Checking", balance: 1000.00, userId: 1},
@@ -14,13 +15,20 @@ import { AccountListComponent } from './accountListComponent';
 export const HomeDashboardComponent = () => {
    const classes = useDashboardContentStyles();
    const [accountsList, setAccounts] = useState<accounts>({accounts: []});
+   const [loading, setLoading] = useState(false);
 
    useEffect(()=>{
+      setLoading(true);
       getAccounts().then(res => {
          setAccounts({accounts: res.data});
+         setLoading(false);
       })
    }, [])
    
+   if(loading) {
+      return <LoadingComponent />;
+   }
+
    return (
       <div>
          <Grid container spacing={3} justify='center' className={classes.container}>
@@ -57,10 +65,14 @@ export const HomeDashboardComponent = () => {
             </Grid>
             <Grid item xs={12}>
                <Paper className={classes.table}>
-               <Typography component='h2' variant='h6' color='primary' className={classes.title}>
-                  Accounts
-               </Typography>
+                  <Typography component='h2' variant='h6' color='primary' className={classes.title}>
+                     Accounts
+                  </Typography>
                   <AccountListComponent accounts={{accounts: accountsList.accounts}}/>
+                  <div className={classes.baseLink}></div>
+                  <Link color='primary' href='#'>
+                     Add Account
+                  </Link>
                </Paper>
             </Grid>
          </Grid>

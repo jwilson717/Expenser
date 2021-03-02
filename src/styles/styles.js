@@ -151,5 +151,8 @@ export const useDashboardContentStyles = makeStyles((theme) => ({
    },
    tileContent: {
       fontSize: '2em'
+   },
+   baseLink: {
+      marginTop: theme.spacing(2)
    }
 }))
