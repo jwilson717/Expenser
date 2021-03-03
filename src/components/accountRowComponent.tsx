@@ -5,6 +5,7 @@ import { AccountRowViewComponent } from './accountRowViewComponent';
 
 export const AccountRowComponent: React.FC<{account: account}> = ({account}) => {
    const [edit, setEdit] = useState(false);
+   const [accountState, setAccountState] = useState<account>(account);
 
    const toggleEdit = () => {
       if (edit) {
@@ -19,13 +20,14 @@ export const AccountRowComponent: React.FC<{account: account}> = ({account}) => 
    }
 
    const save = () => {
-      alert("Save");
+      console.log(accountState);
+      setEdit(false);
    }
 
    return (
       <>
-         {edit ? <AccountRowFormComponent account={account} edit={toggleEdit} save={save} /> 
-            : <AccountRowViewComponent account={account} edit={toggleEdit} deleteRow={deleteRow} />}
+         {edit ? <AccountRowFormComponent account={accountState} accountState={setAccountState} edit={toggleEdit} save={save} /> 
+            : <AccountRowViewComponent account={accountState} edit={toggleEdit} deleteRow={deleteRow} />}
       </>
    )
 }

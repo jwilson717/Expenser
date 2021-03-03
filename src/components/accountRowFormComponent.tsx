@@ -1,13 +1,18 @@
 import { IconButton, TableCell, TableRow, TextField } from '@material-ui/core';
 import { Cancel, Save } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { account } from '../types';
 
-export const AccountRowFormComponent: React.FC<{account: account, edit: ()=> void, save: ()=> void}> = ({account, edit, save}) => {
+export const AccountRowFormComponent: React.FC<{account: account, accountState: React.Dispatch<React.SetStateAction<account>>, edit: ()=> void, save: ()=> void}> = ({account, accountState, edit, save}) => {
    const [item, setItem] = useState<account>(account);
 
    const handleChange = (e: any) => {
-      setItem({...item, [e.target.name]: e.target.value})
+      e.target.type === 'number' ? setItem({...item, [e.target.name]: parseFloat(e.target.value)}) : setItem({...item, [e.target.name]: e.target.value});
+   }
+
+   const saveBtn = () => {
+      accountState(item);
+      save();
    }
 
    return (
@@ -41,7 +46,7 @@ export const AccountRowFormComponent: React.FC<{account: account, edit: ()=> voi
             <IconButton onClick={edit}>
                <Cancel />
             </IconButton>
-            <IconButton onClick={save}>
+            <IconButton onClick={saveBtn}>
                <Save color='primary'/>
             </IconButton>
          </TableCell>

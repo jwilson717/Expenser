@@ -6,6 +6,11 @@ import { account } from '../types';
 export const AccountRowViewComponent: React.FC<{account: account, edit: () => void, deleteRow: ()=> void}> = ({account, edit, deleteRow}) => {
    const [open, setOpen] = useState(false);
 
+   const confirm = () => {
+      deleteRow();
+      setOpen(false);
+   }
+
    return (
       <TableRow key={account.id}>
          <TableCell>
@@ -29,7 +34,7 @@ export const AccountRowViewComponent: React.FC<{account: account, edit: () => vo
                <Button onClick={() => {setOpen(false)}} color='primary'>
                   Cancel
                </Button>
-               <Button onClick={deleteRow} color='primary'>
+               <Button onClick={confirm} color='primary'>
                   Confirm
                </Button>
             </DialogActions>
