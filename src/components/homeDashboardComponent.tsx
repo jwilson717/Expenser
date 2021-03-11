@@ -16,17 +16,29 @@ export const HomeDashboardComponent = () => {
    const classes = useDashboardContentStyles();
    const [accountsList, setAccounts] = useState<accounts>({accounts: []});
    const [loading, setLoading] = useState(false);
+   const [error, setError] = useState<string>();
 
    useEffect(()=>{
       setLoading(true);
       getAccounts().then(res => {
          setAccounts({accounts: res.data});
          setLoading(false);
+      }).catch(e => {
+         setError("Unable to retreive account info");
+         setLoading(false);
       })
    }, [])
    
    if(loading) {
       return <LoadingComponent />;
+   }
+
+   if(!!error) {
+     return (<Paper className={classes.table}>
+         <Typography variant='h6' className={classes.centered} color='primary' noWrap>
+            {error}
+         </Typography>
+      </Paper>);
    }
 
    return (

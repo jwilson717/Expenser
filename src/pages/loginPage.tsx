@@ -25,6 +25,11 @@ export const LoginPage = () => {
          setLoading(false);
          return;
       }
+
+      // remove later this is for testing purposes only
+      context.userDispatch({type: "LOGIN", user: {user: {id: 1, username: 'jwilson', email: 'test@test.com'}}});
+      localStorage.setItem("user", JSON.stringify({id: 1, username: 'jwilson', email: 'test@test.com'}));
+      return;
       login(state)
          .then(res => {
             if(res?.user) {
