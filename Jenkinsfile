@@ -19,7 +19,7 @@ pipeline {
     stage ('image') {
       agent any
       steps {
-        sh 'docker build . -t expenser-front-image'
+        sh 'docker build . -t jwilson717/test:expenser-front-image'
       }
     }
    }
